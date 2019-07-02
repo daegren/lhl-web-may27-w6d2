@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 class Counter extends Component {
   static propTypes = {
-    step: PropTypes.number
+    step: PropTypes.number,
+    min: PropTypes.number,
+    max: PropTypes.number
   };
 
   constructor() {
@@ -15,21 +17,25 @@ class Counter extends Component {
   render() {
     return (
       <div className="counter">
-        <button onClick={this._handleDecrement}>-</button>
+        <button onClick={this._handleChange(-1)}>-</button>
         <span className="value">{this.state.counter}</span>
-        <button onClick={this._handleIncrement}>+</button>
+        <button onClick={this._handleChange(1)}>+</button>
       </div>
     );
   }
 
-  _handleIncrement = () => {
-    const { step = 1 } = this.props;
-    this.setState({ counter: this.state.counter + step });
-  };
+  _handleChange = direction => () => {
+    const { step = 1, min, max } = this.props;
+    const newValue = this.state.counter + direction * step;
 
-  _handleDecrement = () => {
-    const { step = 1 } = this.props;
-    this.setState({ counter: this.state.counter + -1 * step });
+    if (
+      (min === undefined && max === undefined) ||
+      (min !== undefined && max === undefined && newValue >= min) ||
+      (max !== undefined && min === undefined && newValue <= max) ||
+      (min <= newValue && newValue <= max)
+    ) {
+      this.setState({ counter: newValue });
+    }
   };
 }
 
