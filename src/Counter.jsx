@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Counter extends Component {
+  static propTypes = {
+    step: PropTypes.number
+  };
+
   constructor() {
     super();
 
@@ -18,11 +23,13 @@ class Counter extends Component {
   }
 
   _handleIncrement = () => {
-    this.setState({ counter: this.state.counter + 1 });
+    const { step = 1 } = this.props;
+    this.setState({ counter: this.state.counter + step });
   };
 
   _handleDecrement = () => {
-    this.setState({ counter: this.state.counter - 1 });
+    const { step = 1 } = this.props;
+    this.setState({ counter: this.state.counter + -1 * step });
   };
 }
 
