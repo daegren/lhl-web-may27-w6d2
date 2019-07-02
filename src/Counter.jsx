@@ -6,28 +6,23 @@ class Counter extends Component {
     step: PropTypes.number,
     min: PropTypes.number,
     max: PropTypes.number,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    value: PropTypes.number.isRequired
   };
-
-  constructor() {
-    super();
-
-    this.state = { counter: 0 };
-  }
 
   render() {
     return (
       <div className="counter">
         <button onClick={this._handleChange(-1)}>-</button>
-        <span className="value">{this.state.counter}</span>
+        <span className="value">{this.props.value}</span>
         <button onClick={this._handleChange(1)}>+</button>
       </div>
     );
   }
 
   _handleChange = direction => () => {
-    const { step = 1, min, max, onChange } = this.props;
-    const newValue = this.state.counter + direction * step;
+    const { step = 1, min, max, onChange, value } = this.props;
+    const newValue = value + direction * step;
 
     if (
       (min === undefined && max === undefined) ||
@@ -35,7 +30,6 @@ class Counter extends Component {
       (max !== undefined && min === undefined && newValue <= max) ||
       (min <= newValue && newValue <= max)
     ) {
-      this.setState({ counter: newValue });
       if (onChange) {
         onChange(newValue);
       }

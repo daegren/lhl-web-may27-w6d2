@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import Counter from './Counter.jsx';
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = { counterValue: 10 };
+  }
+
   render() {
     return (
       <div>
@@ -10,7 +16,8 @@ class App extends Component {
           step={5}
           min={0}
           max={30}
-          onChange={newValue => console.log('Got a new value', newValue)}
+          onChange={newValue => this.setState({ counterValue: newValue })}
+          value={this.state.counterValue}
         />
       </div>
     );
