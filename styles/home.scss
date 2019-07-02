@@ -1,3 +1,14 @@
 h1 {
   color: tomato;
 }
+
+.counter {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  .value {
+    padding: 1em;
+  }
+}
