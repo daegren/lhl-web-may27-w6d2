@@ -6,7 +6,12 @@ class App extends Component {
     return (
       <div>
         <h1>Hello React :)</h1>
-        <Counter step={5} min={0} max={30} />
+        <Counter
+          step={5}
+          min={0}
+          max={30}
+          onChange={newValue => console.log('Got a new value', newValue)}
+        />
       </div>
     );
   }

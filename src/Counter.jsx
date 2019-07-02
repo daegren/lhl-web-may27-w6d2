@@ -5,7 +5,8 @@ class Counter extends Component {
   static propTypes = {
     step: PropTypes.number,
     min: PropTypes.number,
-    max: PropTypes.number
+    max: PropTypes.number,
+    onChange: PropTypes.func
   };
 
   constructor() {
@@ -25,7 +26,7 @@ class Counter extends Component {
   }
 
   _handleChange = direction => () => {
-    const { step = 1, min, max } = this.props;
+    const { step = 1, min, max, onChange } = this.props;
     const newValue = this.state.counter + direction * step;
 
     if (
@@ -35,6 +36,9 @@ class Counter extends Component {
       (min <= newValue && newValue <= max)
     ) {
       this.setState({ counter: newValue });
+      if (onChange) {
+        onChange(newValue);
+      }
     }
   };
 }
